@@ -1,0 +1,147 @@
+SpringBootJavainuseHelloWorldJspGradle
+
+Install Buildship gradle plugin in eclipse
+
+Create a New Gradle Project
+
+build.gradle
+buildscript {
+	ext {
+		springBootVersion = '1.5.18.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.soumyadeep.springboot'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-web','org.apache.tomcat.embed:tomcat-embed-jasper'
+	,'javax.servlet:jstl')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+
+
+
+
+ 
+Spring Boot Tutorial-Spring Boot+ Gradle
+In this post we create a Hello World Spring Boot Application using Gradle build tool. 
+
+Video
+
+This tutorial is explained in the below Youtube Video.
+
+
+
+Lets Begin-
+
+If Gradle plugin has not been installed for your eclipse, go to Help->Eclipse Marketplace. Search gradle and install the Buildship Gradle Integration 1.0. This will install the gradle plugin
+
+Now go to File->New->select Gradle Project. Name it as spring-boot-gradle.
+
+
+ 
+
+The gradle project we will be creating is as follows
+
+Along with the Spring Boot dependencies we have also tomcat-embed-jasper and jstl jar dependencies as these are required when jsp view is used. Modify the build.gradle as follows-
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'boot-gradle'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web','org.apache.tomcat.embed:tomcat-embed-jasper'
+	,'javax.servlet:jstl')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+ 
+Create the BootGradleApplication.java as below-	
+package com.javainuse;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BootGradleApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BootGradleApplication.class, args);
+	}
+}
+
+@RequestMapping maps /welcome.html request to firstPage() method.
+package com.javainuse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class TestController {
+
+	@RequestMapping("/welcome.html")
+	public ModelAndView firstPage() {
+		return new ModelAndView("welcome");
+	}
+
+}
+
+In the application.properties we define the prefix and suffix as follows. So in the above controller the /welcome.html correctly maps to /WEB-INF/jsp/welcome.jsp.
+spring.mvc.view.prefix:/WEB-INF/jsp/
+spring.mvc.view.suffix:.jsp
+
+ 
+Last we define the welcome.jsp as below-
+<h1>Welcome to Spring Boot</h1>
+
+Compile and the run the SpringBootHelloWorldApplication.java as a Java application.
+Go to localhost:8080/welcome.html
+Download Source Code
+Download it -
+Spring Boot Hello World using Gradle
+
+
